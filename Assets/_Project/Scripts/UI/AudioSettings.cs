@@ -25,9 +25,9 @@ public class AudioSettings : MonoBehaviour
         AudioManager.Instance.SetSliderValue(_musicSlider, "Music");
         AudioManager.Instance.SetSliderValue(_sfxSlider, "SFX");
 
-        mAudioSettings.masterVolValue = _masterSlider.value;
-        mAudioSettings.musicVolValue = _musicSlider.value;
-        mAudioSettings.sfxVolValue = _sfxSlider.value;
+        mAudioSettings.masterVolValue = AudioManager.Instance.GetSliderValue(_masterSlider);
+        mAudioSettings.musicVolValue = AudioManager.Instance.GetSliderValue(_musicSlider);
+        mAudioSettings.sfxVolValue = AudioManager.Instance.GetSliderValue(_sfxSlider);
     }
 
     public void SetMasterVolume(float value)
@@ -75,7 +75,11 @@ public class AudioSettings : MonoBehaviour
     }
 
     public void SaveAudioSettings()
-    {
+    { 
+        mAudioSettings.masterVolValue = AudioManager.Instance.GetSliderValue(_masterSlider);
+        mAudioSettings.musicVolValue = AudioManager.Instance.GetSliderValue(_musicSlider);
+        mAudioSettings.sfxVolValue = AudioManager.Instance.GetSliderValue(_sfxSlider);
+
         string saveFile = Application.persistentDataPath + "/audiosettings.json";
         string json = JsonUtility.ToJson(mAudioSettings);
         File.WriteAllText(saveFile, json);

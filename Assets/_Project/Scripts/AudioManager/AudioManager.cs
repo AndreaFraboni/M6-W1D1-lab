@@ -59,6 +59,15 @@ public class AudioManager : MonoBehaviour
             slider.value = percentage;
         }
     }
+
+    public float GetSliderValue(Slider slider)
+    {
+        float value = Mathf.Max(slider.value, 0.0001f);
+        float decibel = Mathf.Log10(value) * 20f;
+
+        return decibel;
+    }
+
     public void SetVolume(float value, string group)
     {
         if (value > 0.01f)
